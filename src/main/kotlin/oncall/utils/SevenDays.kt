@@ -1,4 +1,4 @@
-package oncall.domain
+package oncall.utils
 
 enum class SevenDays(val dayOfWeek: String) {
     MON("월"),
