@@ -15,7 +15,7 @@ class Calendar(rawMonthAndStartDay: String) {
         }
     }
 
-    fun getLegalHolidays(): List<Int> {
+    private fun getLegalHolidays(): List<Int> {
         return when (month) {
             1, 3 -> listOf(1)
             5 -> listOf(5)
@@ -27,7 +27,7 @@ class Calendar(rawMonthAndStartDay: String) {
         }
     }
 
-    fun getWeekends(): MutableList<Int> {
+    private fun getWeekends(): MutableList<Int> {
         val dayOfWeek = SevenDays.entries.indexOfFirst { it.dayOfWeek == startDay } + 1
         val holidays = mutableListOf<Int>()
         var saturday = SevenDays.entries.size - dayOfWeek
@@ -48,10 +48,9 @@ class Calendar(rawMonthAndStartDay: String) {
     }
 
     fun getWeekdays(): List<Int> {
-        val holidays = getWeekends()
-        val allDays = MutableList(getEndDate()) { it }
+        val holidays = getTotalHolidays()
+        val allDays = MutableList(getEndDate()) { it+1 }
         holidays.forEach { allDays.remove(it) }
-        allDays.remove(0)
         return allDays
     }
 }
