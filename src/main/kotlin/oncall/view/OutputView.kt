@@ -7,7 +7,7 @@ object OutputView {
         var index = SevenDays.entries.indexOfFirst { it.dayOfWeek == startDay }
         for (date in 1..endDate) {
             val dayOfWeek = SevenDays.entries[index].dayOfWeek
-            println("${month}월 ${date}일 ${dayOfWeek} ${totalWorkers[date - 1]}")
+            println("${month}월 ${date}일 $dayOfWeek ${totalWorkers[date - 1]}")
             index = (index + 1) % SevenDays.entries.size
         }
     }
