@@ -32,26 +32,27 @@ class Schedule(private val calendar: Calendar, workers: Workers) {
         schedule.forEachIndexed { index, _ ->
             val currentWorker = holidayWorkersToDate.find { it.second == index + 1 }?.first
                 ?: weekdayWorkersToDate.find { it.second == index + 1 }?.first.toString()
-            schedule.set(index, currentWorker)
+            schedule[index] = currentWorker
             if (index > 0 && schedule[index - 1] == schedule[index]) {
                 var currentHolidayIndex = holidayWorkersToDate.indexOfFirst { it.second - 1 == index } + 1
-                if (currentHolidayIndex > holidayWorkersToDate.size) currentHolidayIndex = 0
+                if (currentHolidayIndex > holidayWorkersToDate.size - 1) currentHolidayIndex = 0
                 if (holidayWorkersToDate.find { it.second - 1 == index }?.first != null) {
-                    schedule.set(index, holidayWorkersToDate[currentHolidayIndex].first)
+                    schedule[index] = holidayWorkersToDate[currentHolidayIndex].first
                     holidayWorkersToDate[currentHolidayIndex] = holidayWorkersToDate[currentHolidayIndex + 1]
                     holidayWorkersToDate[currentHolidayIndex + 1] = holidayWorkersToDate[currentHolidayIndex]
                 } else {
                     var currentWeekdayIndex = weekdayWorkersToDate.indexOfFirst { it.second - 1 == index } + 1
-                    if (currentWeekdayIndex > weekdayWorkersToDate().size) currentWeekdayIndex = 0
-                    schedule.set(index, weekdayWorkersToDate[currentWeekdayIndex].first)
+                    if (currentWeekdayIndex > weekdayWorkersToDate.size - 1) currentWeekdayIndex = 0
+                    schedule[index] = weekdayWorkersToDate[currentWeekdayIndex].first
                     weekdayWorkersToDate[currentWeekdayIndex] = weekdayWorkersToDate[currentWeekdayIndex + 1]
                     weekdayWorkersToDate[currentWeekdayIndex + 1] = weekdayWorkersToDate[currentWeekdayIndex]
                 }
             }
-            schedule.set(index, currentWorker)
+            schedule[index] = currentWorker
         }
         return schedule
     }
 }
+
 
 
