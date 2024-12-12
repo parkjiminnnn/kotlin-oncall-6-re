@@ -1,9 +1,11 @@
 package oncall.domain
 
+import oncall.utils.SevenDays
+
 class Calendar(rawMonthAndStartDay: String) {
     private val monthAndStartDay = rawMonthAndStartDay.split(',')
-    private val month = monthAndStartDay[0].toInt()
-    private val startDay = monthAndStartDay[1]
+    val month = monthAndStartDay[0].toInt()
+    val startDay = monthAndStartDay[1]
 
     fun getEndDate(): Int {
         return when (month) {
@@ -49,6 +51,7 @@ class Calendar(rawMonthAndStartDay: String) {
         val holidays = getWeekends()
         val allDays = MutableList(getEndDate()) { it }
         holidays.forEach { allDays.remove(it) }
+        allDays.remove(0)
         return allDays
     }
 }
