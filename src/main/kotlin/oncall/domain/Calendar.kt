@@ -44,7 +44,7 @@ class Calendar(rawMonthAndStartDay: String) {
     fun getTotalHolidays(): List<Int> {
         val weekends = getWeekends()
         val legalHolidays = getLegalHolidays()
-        return weekends.apply { legalHolidays.forEach { add(it) } }.distinct()
+        return weekends.apply { legalHolidays.forEach { add(it) } }.sorted()
     }
 
     fun getWeekdays(): List<Int> {
